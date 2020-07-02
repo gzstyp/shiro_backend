@@ -30,6 +30,14 @@
     <update id="del" parameterType="String">
         DELETE FROM SYS_ROLE WHERE KID = #{kid} LIMIT 1
     </update>
+    <!-- 删除用户角色 -->
+    <update id="delUserRole" parameterType="String">
+        DELETE FROM SYS_USER_ROLE WHERE ROLE_ID = #{kid}
+    </update>
+    <!-- 删除角色菜单 -->
+    <update id="delRoleMenu" parameterType="HashMap">
+        DELETE FROM SYS_ROLE_MENU WHERE ROLE_ID = #{kid}
+    </update>
 
     <!-- 角色列表的数据 -->
     <select id="listData" parameterType="HashMap" resultType="HashMap">

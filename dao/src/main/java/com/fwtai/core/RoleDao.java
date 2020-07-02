@@ -47,7 +47,10 @@ public class RoleDao{
         return dao.execute("sys_role.edit",pageFormData);
     }
 
+    @Transactional
     public int delById(final String kid){
+        dao.execute("sys_role.delUserRole",kid);/*删除用户角色*/
+        dao.execute("sys_role.delRoleMenu",kid);/*删除角色菜单*/
         return dao.execute("sys_role.del",kid);
     }
 
