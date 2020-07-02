@@ -1040,9 +1040,9 @@ public final class ToolClient implements Serializable{
         }else{
             json.put(ConfigFile.code,ConfigFile.code200);
             json.put(ConfigFile.msg,ConfigFile.msg200);
-            if(permissions != null && permissions.size() > 0){
-                json.put(ConfigFile.permissions,permissions);
-            }
+        }
+        if(permissions != null && permissions.size() > 0){
+            json.put(ConfigFile.permissions,permissions);
         }
         json.put("sEcho",sEcho);
         json.put(ConfigFile.recordsTotal,total);
