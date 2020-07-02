@@ -2,6 +2,7 @@ package com.fwtai.auth;
 
 import com.fwtai.config.ConfigFile;
 import com.fwtai.config.LocalPermission;
+import com.fwtai.config.LocalUrl;
 import com.fwtai.config.LocalUserId;
 import com.fwtai.config.RenewalToken;
 import com.fwtai.tool.ToolClient;
@@ -137,6 +138,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter{
         RenewalToken.remove();
         LocalPermission.remove();
         LocalUserId.remove();
+        LocalUrl.remove();
         super.afterCompletion(request,response,exception);
     }
 }

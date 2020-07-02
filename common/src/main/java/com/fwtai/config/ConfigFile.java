@@ -99,6 +99,8 @@ public final class ConfigFile implements Serializable{
 	public final static String pageSize = "pageSize";
 	/**统一全局的result返回数据(含分页的数据)json关键字key响应给客户端*/
 	public final static String data = "data";
+    /**返回权限数据json关键字key响应给客户端*/
+    public final static String permissions = "permissions";
 	/**datatable的总记录数*/
 	public final static String recordsFiltered = "recordsFiltered";
 	/**datatable的总记录数*/

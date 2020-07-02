@@ -2,6 +2,8 @@ package com.fwtai.datasource;
 
 import com.fwtai.bean.PageFormData;
 import com.fwtai.config.ConfigFile;
+import com.fwtai.config.LocalUrl;
+import com.fwtai.config.LocalUserId;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -393,10 +395,7 @@ public class DaoHandle{
 	 * @主页 http://www.fwtai.com
 	*/
 	public HashMap<String,Object> queryForPage(final HashMap<String,Object> params,final String sqlMapIdListData,final String sqlMapIdTotal){
-		final HashMap<String,Object> map = new HashMap<String,Object>(2);
-		map.put(ConfigFile.total,sqlSession.selectOne(sqlMapIdTotal,params));
-		map.put(ConfigFile.rows,sqlSession.selectList(sqlMapIdListData,params));
-		return map;
+        return queryPageData(params,sqlMapIdListData,sqlMapIdTotal);
 	}
 	
 	/**
@@ -411,9 +410,20 @@ public class DaoHandle{
 	 * @主页 http://www.fwtai.com
 	*/
 	public HashMap<String,Object> queryForPage(final PageFormData params,final String sqlMapIdListData,final String sqlMapIdTotal){
-        final HashMap<String,Object> map = new HashMap<String,Object>(2);
-		map.put(ConfigFile.total,sqlSession.selectOne(sqlMapIdTotal,params));
-		map.put(ConfigFile.rows,sqlSession.selectList(sqlMapIdListData,params));
-		return map;
+        return queryPageData(params,sqlMapIdListData,sqlMapIdTotal);
 	}
+
+    private HashMap<String,Object> queryPageData(final Object params,final String sqlMapIdListData,final String sqlMapIdTotal){
+        final HashMap<String,Object> map = new HashMap<String,Object>(3);
+        map.put(ConfigFile.total,sqlSession.selectOne(sqlMapIdTotal,params));
+        map.put(ConfigFile.rows,sqlSession.selectList(sqlMapIdListData,params));
+        final String url = LocalUrl.get();
+        if(url != null){
+            final HashMap<String,String> permissions = new HashMap<String,String>();
+            permissions.put("userId",LocalUserId.get());
+            permissions.put("url",url);
+            map.put(ConfigFile.permissions,sqlSession.selectList("sys_user.permissions",permissions));
+        }
+        return map;
+    }
 }

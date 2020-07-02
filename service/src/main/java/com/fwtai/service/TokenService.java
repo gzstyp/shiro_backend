@@ -3,6 +3,7 @@ package com.fwtai.service;
 import com.fwtai.bean.LoginUser;
 import com.fwtai.config.ConfigFile;
 import com.fwtai.config.LocalPermission;
+import com.fwtai.config.LocalUrl;
 import com.fwtai.config.LocalUserId;
 import com.fwtai.service.web.UserService;
 import com.fwtai.tool.ToolJWT;
@@ -30,6 +31,13 @@ public class TokenService{
         final Claims claims = ToolJWT.parser(token);
         final String userId = claims.getId();
         LocalUserId.set(userId);//存入 ThreadLocal,方便后续获取用户信息
+        String uri = request.getRequestURI();
+        if(uri.contains("/listData")){
+            if(uri.startsWith("/")){
+                uri = uri.substring(1);
+            }
+            LocalUrl.set(uri);
+        }
         final List<String> roles = claims.get(userId,List.class);
         final LoginUser loginUser = new LoginUser();
         loginUser.setUserId(userId);

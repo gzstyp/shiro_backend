@@ -114,10 +114,6 @@ public class UserDao{
         return dao.queryForPage(pageFormData,"sys_user.listData","sys_user.listTotal");
     }
 
-    public List<HashMap<String,String>> queryPermissions(){
-        return dao.queryForListString("sys_auth_filter.getShiroFilter");
-    }
-
     //shiro认证(根据用户和密码获取用户id)
     public User queryLogin(final HashMap<String,String> params){
         return dao.queryForEntity("sys_user.userLogin",params);
@@ -149,9 +145,5 @@ public class UserDao{
 
     public List<HashMap<String,String>> getMenuData(final String userId){
         return dao.queryForListString("sys_user.getMenuData",userId);
-    }
-
-    public List<String> permissions(final HashMap<String,String> params){
-        return dao.queryListString("sys_user.permissions",params);
     }
 }

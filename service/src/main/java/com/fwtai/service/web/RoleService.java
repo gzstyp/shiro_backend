@@ -102,7 +102,7 @@ public class RoleService{
             pageFormData = ToolClient.dataTableMysql(pageFormData);
             if(pageFormData == null)return ToolClient.jsonValidateField();
             final HashMap<String,Object> map = roleDao.listData(pageFormData);
-            return ToolClient.dataTableOK((List<Object>)map.get(ConfigFile.rows),map.get(ConfigFile.total),pageFormData.get("sEcho"));
+            return ToolClient.dataTableOK((List<Object>)map.get(ConfigFile.rows),map.get(ConfigFile.total),(List<String>)map.get(ConfigFile.permissions),pageFormData.get("sEcho"));
         } catch (Exception e){
             e.printStackTrace();
             return ToolClient.dataTableException(pageFormData.get("sEcho"));

@@ -201,7 +201,7 @@ public class MenuService{
             pageFormData = ToolClient.dataTableMysql(pageFormData);
             if(pageFormData == null)return ToolClient.jsonValidateField();
             final HashMap<String,Object> map = menuDao.listData(pageFormData);
-            return ToolClient.dataTableOK((List<Object>)map.get(ConfigFile.rows),map.get(ConfigFile.total),pageFormData.get("sEcho"));
+            return ToolClient.dataTableOK((List<Object>)map.get(ConfigFile.rows),map.get(ConfigFile.total),(List<String>)map.get(ConfigFile.permissions),pageFormData.get("sEcho"));
         } catch (Exception e){
             return ToolClient.dataTableException(pageFormData.get("sEcho"));
         }

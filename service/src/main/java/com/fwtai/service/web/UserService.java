@@ -325,33 +325,11 @@ public class UserService{
                 pageFormData.put("userId",userId);
             }
             final HashMap<String,Object> map = userDao.listData(pageFormData);
-            return ToolClient.dataTableOK((List<Object>)map.get(ConfigFile.rows),map.get(ConfigFile.total),pageFormData.get("sEcho"));
+            return ToolClient.dataTableOK((List<Object>)map.get(ConfigFile.rows),map.get(ConfigFile.total),(List<String>)map.get(ConfigFile.permissions),pageFormData.get("sEcho"));
         } catch (Exception e){
             e.printStackTrace();
             return ToolClient.dataTableException(pageFormData.get("sEcho"));
         }
-    }
-
-    /**
-     * 获取当前登录id的所有权限
-     * @param pageFormData
-     * @作者 田应平
-     * @QQ 444141300
-     * @创建时间 2020/5/24 10:41
-    */
-    public String permissions(final PageFormData pageFormData){
-        final String p_url = "url";
-        final String validate = ToolClient.validateField(pageFormData,p_url);
-        if(validate != null)return validate;
-        String url = pageFormData.getString(p_url);
-        if(url.startsWith("/")){
-            url = url.substring(1);
-        }
-        final String userId = LocalUserId.get();
-        final HashMap<String,String> params = new HashMap<String,String>();
-        params.put("userId",userId);
-        params.put("url",url);
-        return ToolClient.queryJson(userDao.permissions(params));
     }
 
     //根据指定userid获取菜单用于分配私有菜单
