@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fwtai.bean.PageFormData;
+import com.fwtai.bean.UploadFile;
+import com.fwtai.bean.UploadObject;
 import com.fwtai.config.ConfigFile;
 import com.fwtai.config.RenewalToken;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
@@ -30,7 +32,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -1109,54 +1113,44 @@ public final class ToolClient implements Serializable{
      * @QQ 444141300
      * @创建时间 2020年6月1日 21:04:37
     */
-    public final static HashMap<String,Object> uploadImage(final HttpServletRequest request,final String baseDir,final Integer limit,final boolean verify){
-        //final PageFormData formData = new PageFormData().build(request);
+    public final static UploadObject uploadImage(final HttpServletRequest request,final String baseDir,final Integer limit,final boolean verify){
+        final UploadObject uploadObject = new UploadObject();
         final PageFormData formData = new PageFormData(request);
-        final HashMap<String,Object> objectHashMap = new HashMap<String,Object>(2);
-        final String error = "error";
+        final UploadFile uploadFile = new UploadFile();
         MultipartHttpServletRequest mhsr = null;
         try {
             mhsr =  (MultipartHttpServletRequest) request;
         } catch (Exception e){
             if(verify){
-                objectHashMap.put(error,"请上传文件");
-                return objectHashMap;
-            }
-        }
-        if(mhsr == null){
-            if(verify){
-                objectHashMap.put(error,"未上传文件");
-                return objectHashMap;
+                uploadObject.setErrorMsg("请上传文件");
+                return uploadObject;
             }
         }
         final Map<String,MultipartFile> map = mhsr.getFileMap();
-        if(map == null || map.size() <=0){
-            if(verify){
-                objectHashMap.put(error,"请选择上传文件");
-                return objectHashMap;
+        if(verify){
+            if(mhsr == null){
+                if(verify){
+                    uploadObject.setErrorMsg("未上传文件");
+                    return uploadObject;
+                }
+            }
+            if(map == null || map.size() <=0){
+                uploadObject.setErrorMsg("请选择上传文件");
+                return uploadObject;
+            }
+        }
+        if(limit != null && limit > 0){
+            if(map.size() > limit){
+                uploadObject.setErrorMsg("文件数量已超过限制");
+                return uploadObject;
             }
         }
         final DiskFileItemFactory fac = new DiskFileItemFactory();
         final ServletFileUpload upload = new ServletFileUpload(fac);
-        String originalPath = null;
-        final ArrayList<HashMap<String,String>> fileList = new ArrayList<HashMap<String,String>>();
+        final ArrayList<UploadFile> files = new ArrayList<UploadFile>();
         try {
             upload.setHeaderEncoding("utf-8");
             mhsr.setCharacterEncoding("utf-8");
-            /* 在 spring boot 的jar下这个方式行不通啦!!!
-            final String sys = File.separator;
-            String dirType = sys;
-            final String savePath = mhsr.getSession().getServletContext().getRealPath(dirType);
-            final File directory = new File(savePath);
-            if(!directory.exists()){
-                directory.mkdirs();
-            }*/
-            if(limit != null && limit > 0){
-                if(map != null && map.size() > limit){
-                    objectHashMap.put(error,"图片数量已超过限制");
-                    return objectHashMap;
-                }
-            }
             boolean bl = false;
             for(final String key : map.keySet()){
                 final MultipartFile mf = mhsr.getFile(key);
@@ -1164,41 +1158,43 @@ public final class ToolClient implements Serializable{
                     bl = true;
                     break;
                 }
-                final String name = mf.getOriginalFilename();
-                final String extName = name.substring(name.lastIndexOf("."));
+                final String originalName = mf.getOriginalFilename();
+                final String extName = originalName.substring(originalName.lastIndexOf("."));
                 final String fileName = ToolString.getIdsChar32() + extName;
-                final File fileDir = new File(baseDir);
+                final String dayDir = "/" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + "/";
+                final File fileDir = new File(baseDir + dayDir);
                 if(!fileDir.exists()){
                     fileDir.mkdirs();
                 }
-                originalPath = baseDir + fileName;
-                mf.transferTo(new File(originalPath));
-                final HashMap<String,String> maps = new HashMap<String,String>(3);
-                maps.put("originalName",name);
-                maps.put("fileName",fileName);
-                maps.put("path",originalPath);
-                fileList.add(maps);
+                final String fullPath = (baseDir + dayDir + fileName).replaceAll("//","/");
+                mf.transferTo(new File(fullPath));
+                uploadFile.setUrlFile(dayDir + fileName);
+                uploadFile.setOriginalName(originalName);
+                uploadFile.setFullPath(fullPath);
+                uploadFile.setFileName(fileName);
+                uploadFile.setBasePath(baseDir);
+                files.add(uploadFile);
             }
             if(bl){
-                for(int i = 0; i < fileList.size(); i++){
-                    delFileByThread(fileList.get(i).get("path"));
+                for(int i = 0; i < files.size(); i++){
+                    delFileByThread(files.get(i).getFullPath());
                 }
-                objectHashMap.put(error,"操作失败,某个文件过大");
-                return objectHashMap;
+                uploadObject.setErrorMsg("操作失败,某个文件过大");
+                return uploadObject;
             }
-            if(fileList.size() > 0){
-                objectHashMap.put("files",fileList);
+            if(files.size() > 0){
+                uploadObject.setListFiles(files);
             }
             if(formData.size() > 0){
-                objectHashMap.put("params",formData);
+                uploadObject.setParams(formData);
             }
-            return objectHashMap;
+            return uploadObject;
         } catch (Exception e) {
-            for(int i = 0; i < fileList.size(); i++){
-                delFileByThread(fileList.get(i).get("path"));
+            for(int i = 0; i < files.size(); i++){
+                delFileByThread(files.get(i).getFullPath());
             }
-            objectHashMap.put(error,"操作失败,处理文件失败");
-            return objectHashMap;
+            uploadObject.setErrorMsg("操作失败,处理文件失败");
+            return uploadObject;
         }
     }
 
