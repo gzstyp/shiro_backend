@@ -691,7 +691,7 @@ public final class ToolClient implements Serializable{
 			response.reset();
 			// 设置response的Header
 			response.addHeader("Content-Disposition", "attachment;filename="+ new String((filename + ext).getBytes("utf-8"), "ISO-8859-1"));
-			response.addHeader("Content-Length", "" + file.length());
+            response.addHeader("Content-Length",String.valueOf(file.length()));
 			OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
 			response.setContentType("application/octet-stream");
 			toClient.write(buffer);

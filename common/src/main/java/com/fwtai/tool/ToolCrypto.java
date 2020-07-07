@@ -1,12 +1,11 @@
 package com.fwtai.tool;
 
-import sun.misc.BASE64Encoder;
-
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Base64;
 import java.util.HashMap;
 
 /**
@@ -53,7 +52,7 @@ public final class ToolCrypto{
         final Key key = (Key) keyMap.get(PUBLIC_KEY);
         //byte[] publicKey = key.getEncoded();
         //编码返回字符串
-        return (new BASE64Encoder()).encodeBuffer(key.getEncoded());
+        return Base64.getEncoder().encodeToString(key.getEncoded());
     }
 
     //从方法initKey()获得私钥
@@ -62,7 +61,7 @@ public final class ToolCrypto{
         final Key key = (Key) keyMap.get(PRIVATE_KEY);
         //byte[] privateKey = key.getEncoded();
         //编码返回字符串
-        return (new BASE64Encoder()).encodeBuffer(key.getEncoded());
+        return Base64.getEncoder().encodeToString(key.getEncoded());
     }
 
     public static void main(String[] args){
