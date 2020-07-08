@@ -130,8 +130,14 @@ public class ExceptionMonitor{
             }else{
                 ToolClient.responseJson(ToolClient.exceptionJson("输入的字符过多,减少一些试试!"),response);
             }
+        }else if(message.contains("' doesn't have a default value")){
+            final int start = message.indexOf("Cause: java.sql.SQLException: Field '")+37;
+            final int end = message.indexOf("' doesn't have a default value");
+            final String field = message.substring(start,end);
+            ToolClient.responseJson(ToolClient.exceptionJson("哥们，有个字段的值为空哦!"),response);
         }else{
-            ToolClient.responseJson(ToolClient.exceptionJson("您输入字数过多"),response);
+            exception.printStackTrace();
+            ToolClient.responseJson(ToolClient.exceptionJson("哦,抱歉,系统出现错误"),response);
         }
     }
 
