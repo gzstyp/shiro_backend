@@ -1168,7 +1168,7 @@ public final class ToolClient implements Serializable{
                 }
                 final String fullPath = (baseDir + dayDir + fileName).replaceAll("//","/");
                 mf.transferTo(new File(fullPath));
-                uploadFile.setUrlFile(dayDir + fileName);
+                uploadFile.setUrlFile("/images"+dayDir + fileName);// Nginx的配置windows环境的路径 root C:\\;上传的跟目录是 C:\images; Nginx的配置linux的环境路径 root /home/data/;上传的跟目录是 /home/data/images/
                 uploadFile.setOriginalName(originalName);
                 uploadFile.setFullPath(fullPath);
                 uploadFile.setFileName(fileName);
