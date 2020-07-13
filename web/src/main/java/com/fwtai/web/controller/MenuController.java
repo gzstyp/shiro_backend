@@ -29,48 +29,48 @@ public class MenuController{
     private MenuService menuService;
 
     /**添加*/
-    @RequiresPermissions("menu:btn:add")
-    @PostMapping(value = "/add",name = "menu:btn:add")
+    @RequiresPermissions("menu_btn_add")
+    @PostMapping(value = "/add",name = "menu_btn_add")
     public void add(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.add(ToolClient.getFormData(request)),response);
     }
 
     /**编辑*/
-    @RequiresPermissions("menu:row:edit")
-    @PostMapping(value = "/edit",name = "menu:row:edit")
+    @RequiresPermissions("menu_row_edit")
+    @PostMapping(value = "/edit",name = "menu_row_edit")
     public void edit(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.edit(ToolClient.getFormData(request)),response);
     }
 
     /**删除-单行*/
-    @RequiresPermissions("menu:row:delById")
-    @PostMapping(value = "/delById",name = "menu:row:delById")
+    @RequiresPermissions("menu_row_delById")
+    @PostMapping(value = "/delById",name = "menu_row_delById")
     public void delById(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.delById(ToolClient.getFormData(request)),response);
     }
 
     /**获取数据*/
-    @RequiresPermissions("menu:btn:listData")
-    @GetMapping(value = "/listData",name = "menu:btn:listData")
+    @RequiresPermissions("menu_btn_listData")
+    @GetMapping(value = "/listData",name = "menu_btn_listData")
     public void listData(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.listData(ToolClient.getFormData(request)),response);
     }
 
     /**获取详细信息*/
-    @RequiresPermissions("menu:row:queryById")
-    @GetMapping(value = "/queryById",name = "menu:row:queryById")
+    @RequiresPermissions("menu_row_queryById")
+    @GetMapping(value = "/queryById",name = "menu_row_queryById")
     public void queryById(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.queryById(ToolClient.getFormData(request)),response);
     }
 
     /**查询所有的菜单,用于添加或编辑菜单*/
-    @RequiresPermissions("menu:btn:queryTreeMenu")
-    @GetMapping(value = "/queryTreeMenu",name = "menu:btn:queryTreeMenu")
+    @RequiresPermissions("menu_btn_queryTreeMenu")
+    @GetMapping(value = "/queryTreeMenu",name = "menu_btn_queryTreeMenu")
     public void queryTreeMenu(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.queryTreeMenu(ToolClient.getFormData(request)),response);
     }
 
-    @GetMapping(value = "/notAuthorized",name = "menu:notAuthorized")
+    @GetMapping(value = "/notAuthorized",name = "menu_notAuthorized")
     public void notAuthorized(final HttpServletResponse response){
         ToolClient.responseJson(ToolClient.notAuthorized(),response);
     }
