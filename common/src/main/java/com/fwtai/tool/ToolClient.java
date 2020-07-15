@@ -910,9 +910,9 @@ public final class ToolClient implements Serializable{
         final PageFormData params = new PageFormData();
         final Enumeration<String> paramNames = request.getParameterNames();
         while(paramNames.hasMoreElements()){
-            final String key = paramNames.nextElement();
+            final String key = paramNames.nextElement().trim();
             if(key.equals("_"))continue;
-            final String value = request.getParameter(key);
+            final String value = request.getParameter(key).trim();
             if(value != null && value.length() > 0){
                 if(value.length() == 1 && value.equals("_"))
                     continue;
@@ -920,7 +920,7 @@ public final class ToolClient implements Serializable{
                     continue;
                 if(value.equalsIgnoreCase("null"))
                     continue;
-                params.put(key,value.trim());
+                params.put(key,value);
             }
         }
         return params;

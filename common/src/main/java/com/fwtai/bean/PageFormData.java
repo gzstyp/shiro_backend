@@ -43,14 +43,14 @@ public final class PageFormData extends HashMap<String,Object>{
 		map = new HashMap<String,Object>(20);
 		final Enumeration<String> paramNames = request.getParameterNames();
         while(paramNames.hasMoreElements()){
-            final String key = paramNames.nextElement();
+            final String key = paramNames.nextElement().trim();
             if(key.equals("_"))continue;
-            final String value = request.getParameter(key);
+            final String value = request.getParameter(key).trim();
             if(value != null && value.length() > 0){
                 if(value.length() == 1 && value.equals("_"))continue;
                 if(value.equalsIgnoreCase("undefined"))continue;
                 if(value.equalsIgnoreCase("null"))continue;
-                map.put(key,value.trim());
+                map.put(key,value);
             }
         }
 	}
