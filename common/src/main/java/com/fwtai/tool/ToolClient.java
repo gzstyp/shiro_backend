@@ -361,7 +361,7 @@ public final class ToolClient implements Serializable{
     }
 
     /**
-     * 验证必要的字段是否为空,不验证ckey密钥,一般在service层调用,如果返回为 null 则验证成功,否则失败;适用于增、删、改、查操作!
+     * 验证必要的字段是否为空,一般在service层调用,如果返回为 null 则验证成功,否则失败;适用于增、删、改、查操作!
      * @fields 需要验证的form字段
      * @用法1 final String validate = ToolClient.validateField(params,"kid");if(validate != null)return validate;
      * @用法2 final String validate = ToolClient.validateField(params,new String[]{"id"});if(validate != null)return validate;
@@ -372,12 +372,10 @@ public final class ToolClient implements Serializable{
      * @主页 http://www.fwtai.com
     */
     public final static String validateField(final Map<String,?> params,final String... fields){
-        if(ToolString.isBlank(params) || ToolString.isBlank(fields)){
-            return jsonValidateField();
-        }
+        if(params == null || params.size() <= 0)return jsonValidateField();
         boolean flag = false;
-        for (final String p : fields){
-            if(ToolString.isBlank(params.get(p))){
+        for (final String value : fields){
+            if(value == null || value.equalsIgnoreCase("null") || value.equalsIgnoreCase("undefined") || value.equals("_") || value.length() <= 0){
                 flag = true;
                 break;
             }
@@ -427,12 +425,13 @@ public final class ToolClient implements Serializable{
      * @创建时间 2020/4/2 13:04
     */
     public final static String validateInteger(final Map<String,?> params,final String... fields){
+        if(params == null || params.size() <= 0) return jsonValidateField();
         for(int i = 0; i < fields.length;i++){
             try {
                 final Object o = params.get(fields[i]);
                 if(o != null){
                     final String value = String.valueOf(String.valueOf(o));
-                    if(value.equalsIgnoreCase("null") || value.equalsIgnoreCase("undefined"))return jsonValidateInteger();
+                    if(value.equalsIgnoreCase("null") || value.equalsIgnoreCase("undefined") || value.equals("_") || value.length() <= 0)return jsonValidateInteger();
                     if(value == null){
                         return jsonValidateInteger();
                     }
