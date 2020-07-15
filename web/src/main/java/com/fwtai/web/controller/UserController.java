@@ -1,7 +1,7 @@
 package com.fwtai.web.controller;
 
 import com.fwtai.bean.PageFormData;
-import com.fwtai.service.web.UserService;
+import com.fwtai.service.core.UserService;
 import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolJWT;
 import io.jsonwebtoken.Claims;

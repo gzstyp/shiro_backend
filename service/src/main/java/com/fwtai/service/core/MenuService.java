@@ -1,4 +1,4 @@
-package com.fwtai.service.web;
+package com.fwtai.service.core;
 
 import com.fwtai.bean.Menu;
 import com.fwtai.bean.PageFormData;

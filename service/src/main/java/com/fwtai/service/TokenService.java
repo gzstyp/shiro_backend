@@ -5,7 +5,7 @@ import com.fwtai.config.ConfigFile;
 import com.fwtai.config.LocalPermission;
 import com.fwtai.config.LocalUrl;
 import com.fwtai.config.LocalUserId;
-import com.fwtai.service.web.UserService;
+import com.fwtai.service.core.UserService;
 import com.fwtai.tool.ToolJWT;
 import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Service;
