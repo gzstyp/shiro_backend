@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 13/07/2020 20:45:39
+ Date: 16/07/2020 22:37:31
 */
 
 SET NAMES utf8mb4;
@@ -108,14 +108,6 @@ CREATE TABLE `sys_role_menu`  (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('ffffffffc9d34c7e0000000041e055da', '000000000c9ac38fffffffffb8ae4eb3', '0000000006a9099300000000100d10cd');
-INSERT INTO `sys_role_menu` VALUES ('ffffffffd04bd051ffffffff8397c77b', '000000000c9ac38fffffffffb8ae4eb3', '000000000ba93c43ffffffffe5c59508');
-INSERT INTO `sys_role_menu` VALUES ('000000004ebcfe13ffffffffb40e5d37', '000000000c9ac38fffffffffb8ae4eb3', '0000000058e2ec83000000002f978e03');
-INSERT INTO `sys_role_menu` VALUES ('ffffffff92e43255ffffffff9ff9b8ea', '000000000c9ac38fffffffffb8ae4eb3', '000000005c41138100000000288a6b45');
-INSERT INTO `sys_role_menu` VALUES ('0000000043da60feffffffffc5c8fe89', '000000000c9ac38fffffffffb8ae4eb3', 'ffffffff8b559df0ffffffff834bba04');
-INSERT INTO `sys_role_menu` VALUES ('ffffffffeaa8a91fffffffffbd2a1a05', '000000000c9ac38fffffffffb8ae4eb3', 'ffffffffddf9f51ffffffffff6157ca3');
-INSERT INTO `sys_role_menu` VALUES ('ffffffffae442903ffffffffdc3a7fcd', '000000000c9ac38fffffffffb8ae4eb3', 'ffffffffe56e8ef0ffffffff912af74a');
-INSERT INTO `sys_role_menu` VALUES ('ffffffffacec943cffffffffea767d42', '000000000c9ac38fffffffffb8ae4eb3', 'fffffffff051bf04ffffffffa2ae3c8e');
 INSERT INTO `sys_role_menu` VALUES ('000000007f13261d000000005501c6d7', 'ffffffffde90da3fffffffffdef7150f', '0000000006a9099300000000100d10cd');
 INSERT INTO `sys_role_menu` VALUES ('ffffffffcab349520000000001497712', 'ffffffffde90da3fffffffffdef7150f', '000000000ba93c43ffffffffe5c59508');
 INSERT INTO `sys_role_menu` VALUES ('0000000015f6a64cffffffffee690a58', 'ffffffffde90da3fffffffffdef7150f', '000000002d8402d60000000072f7dea2');
@@ -129,7 +121,6 @@ INSERT INTO `sys_role_menu` VALUES ('0000000066539da5ffffffffc7fc925e', 'fffffff
 INSERT INTO `sys_role_menu` VALUES ('ffffffffda4a14f80000000033214822', 'ffffffffde90da3fffffffffdef7150f', '000000007937b8de0000000034ef3b70');
 INSERT INTO `sys_role_menu` VALUES ('ffffffffa0edaa8affffffffb94715a5', 'ffffffffde90da3fffffffffdef7150f', '000000007a3bebc1ffffffffc0d19222');
 INSERT INTO `sys_role_menu` VALUES ('000000007e7260280000000029f56bf3', 'ffffffffde90da3fffffffffdef7150f', '000000007ea75783000000004607fdec');
-INSERT INTO `sys_role_menu` VALUES ('ffffffffe3b6e977ffffffffab7b642f', 'ffffffffde90da3fffffffffdef7150f', '1111ffffe56e8ef0ffffffff912af111');
 INSERT INTO `sys_role_menu` VALUES ('0000000075bf785b00000000088f043c', 'ffffffffde90da3fffffffffdef7150f', '111fffffbd911aa0ffffffffd5637fff');
 INSERT INTO `sys_role_menu` VALUES ('000000004e5ad468ffffffffc856bd87', 'ffffffffde90da3fffffffffdef7150f', 'ffffffff87212d7d000000005fbd6e98');
 INSERT INTO `sys_role_menu` VALUES ('ffffffffd9694ae2ffffffffda58e1e9', 'ffffffffde90da3fffffffffdef7150f', 'ffffffff8b559df0ffffffff834bba04');
@@ -170,8 +161,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 INSERT INTO `sys_user` VALUES ('ffffffff95beb47dffffffffad7e6abe', 'administrator', 1, '2020-04-15 22:39:30', 0, '2020-04-17 16:43:45', 5, 0, '2020-04-17 16:43:45');
 INSERT INTO `sys_user` VALUES ('ffffffffab9fc98dffffffff8b642b39', 'menu', 1, '2020-04-15 22:42:01', 0, '2020-04-15 22:43:09', 3, 0, '2020-04-15 22:43:09');
-INSERT INTO `sys_user` VALUES ('ffffffffbd471a55ffffffff976c6d1b', 'typ', 1, '2020-04-13 19:55:34', 0, '2020-06-09 01:14:47', 74, 0, '2020-06-09 01:14:47');
-INSERT INTO `sys_user` VALUES ('ffffffffddf9f1ffffffffff88888888', 'admin', 1, '2020-03-18 16:49:48', 0, '2020-07-13 20:38:50', 84, 0, '2020-07-13 20:38:50');
+INSERT INTO `sys_user` VALUES ('ffffffffddf9f1ffffffffff88888888', 'admin', 1, '2020-03-18 16:49:48', 0, '2020-07-16 22:20:25', 85, 0, '2020-07-16 22:20:25');
 
 -- ----------------------------
 -- Table structure for sys_user_manage
@@ -211,29 +201,6 @@ CREATE TABLE `sys_user_menu`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户菜单(私有菜单)' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sys_user_menu
--- ----------------------------
-INSERT INTO `sys_user_menu` VALUES ('7609110c9da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', 'ffffffff8b559df0ffffffff834bba04');
-INSERT INTO `sys_user_menu` VALUES ('760914829da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', 'ffffffffe56e8ef0ffffffff912af74a');
-INSERT INTO `sys_user_menu` VALUES ('760915ba9da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', '0000000006a9099300000000100d10cd');
-INSERT INTO `sys_user_menu` VALUES ('760916d69da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', '000000000ba93c43ffffffffe5c59508');
-INSERT INTO `sys_user_menu` VALUES ('7609172e9da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', '0000000058e2ec83000000002f978e03');
-INSERT INTO `sys_user_menu` VALUES ('7609177c9da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', 'ffffffff8c468a55ffffffff8f59d635');
-INSERT INTO `sys_user_menu` VALUES ('760917c19da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', '000000002d8402d60000000072f7dea2');
-INSERT INTO `sys_user_menu` VALUES ('760918099da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', '000000007330a2a9ffffffff98cebe66');
-INSERT INTO `sys_user_menu` VALUES ('760918ea9da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', '111fffffbd911aa0ffffffffd5637fff');
-INSERT INTO `sys_user_menu` VALUES ('760919329da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', 'fffffffffaad7649ffffffffe7c3d6a6');
-INSERT INTO `sys_user_menu` VALUES ('760919789da611ea9ac200505625d758', 'ffffffffbd471a55ffffffff976c6d1b', 'ffffffff87212d7d000000005fbd6e98');
-INSERT INTO `sys_user_menu` VALUES ('8b7aaa2c85ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', 'ffffffff8b559df0ffffffff834bba04');
-INSERT INTO `sys_user_menu` VALUES ('8b7aafaa85ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', 'ffffffffe56e8ef0ffffffff912af74a');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab14485ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', '0000000006a9099300000000100d10cd');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab24785ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', '000000000ba93c43ffffffffe5c59508');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab2df85ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', '000000005c41138100000000288a6b45');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab3a885ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', '0000000058e2ec83000000002f978e03');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab44185ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', 'fffffffff051bf04ffffffffa2ae3c8e');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab53085ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', '1111ffffe56e8ef0ffffffff912af111');
-
--- ----------------------------
 -- Table structure for sys_user_password
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_password`;
@@ -248,7 +215,6 @@ CREATE TABLE `sys_user_password`  (
 -- Records of sys_user_password
 -- ----------------------------
 INSERT INTO `sys_user_password` VALUES ('ffffffffddf9f1ffffffffff88888888', '6b070561b2990a852baccaa5ca3432f160a671fa');
-INSERT INTO `sys_user_password` VALUES ('ffffffffbd471a55ffffffff976c6d1b', '9c82fbcc05ad3295c414e8b909bd7158985d91fc');
 INSERT INTO `sys_user_password` VALUES ('ffffffff95beb47dffffffffad7e6abe', 'f156cdac2390370f57b47f8bccde425e14a97efd');
 INSERT INTO `sys_user_password` VALUES ('ffffffffab9fc98dffffffff8b642b39', 'fdc899b4ba9b814383b3368eb3ff0f7721db9662');
 
