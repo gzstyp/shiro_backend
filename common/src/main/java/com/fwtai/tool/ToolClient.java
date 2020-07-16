@@ -858,15 +858,12 @@ public final class ToolClient implements Serializable{
         while(paramNames.hasMoreElements()){
             final String key = paramNames.nextElement();
             if(key.equals("_"))continue;
-            final String value = request.getParameter(key);
+            String value = request.getParameter(key);
             if(value != null && value.length() >0){
-                if(value.length() == 1 && value.equals("_"))
+                value = value.trim();
+                if(checkNull(value))
                     continue;
-                if(value.equalsIgnoreCase("undefined"))
-                    continue;
-                if(value.equalsIgnoreCase("null"))
-                    continue;
-                params.put(key,value.trim());
+                params.put(key,value);
             }
         }
         return params;
@@ -885,15 +882,12 @@ public final class ToolClient implements Serializable{
         while(paramNames.hasMoreElements()){
             final String key = paramNames.nextElement();
             if(key.equals("_"))continue;
-            final String value = request.getParameter(key);
+            String value = request.getParameter(key);
             if(value != null && value.length() > 0){
-                if(value.length() == 1 && value.equals("_"))
+                value = value.trim();
+                if(checkNull(value))
                     continue;
-                if(value.equalsIgnoreCase("undefined"))
-                    continue;
-                if(value.equalsIgnoreCase("null"))
-                    continue;
-                params.put(key,value.trim());
+                params.put(key,value);
             }
         }
         return params;
@@ -912,18 +906,23 @@ public final class ToolClient implements Serializable{
         while(paramNames.hasMoreElements()){
             final String key = paramNames.nextElement().trim();
             if(key.equals("_"))continue;
-            final String value = request.getParameter(key).trim();
+            String value = request.getParameter(key);
             if(value != null && value.length() > 0){
-                if(value.length() == 1 && value.equals("_"))
-                    continue;
-                if(value.equalsIgnoreCase("undefined"))
-                    continue;
-                if(value.equalsIgnoreCase("null"))
+                value = value.trim();
+                if(checkNull(value))
                     continue;
                 params.put(key,value);
             }
         }
         return params;
+    }
+
+    private static boolean checkNull(final String value){
+        if(value.length() <= 0)return true;
+        if(value.equals("_"))return true;
+        if(value.equalsIgnoreCase("undefined"))return true;
+        if(value.equalsIgnoreCase("null"))return true;
+        return false;
     }
 
 	/**
