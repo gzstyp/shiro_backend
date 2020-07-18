@@ -117,7 +117,6 @@ public class RoleService{
         return ToolClient.executeRows(roleDao.delEmptyMenu(roleId));
     }
 
-
     //根据指定roleId获取角色菜单
     public String getRoleMenu(final PageFormData pageFormData){
         final String p_roleId = "roleId";
