@@ -320,9 +320,9 @@ public class UserService{
             if(pageFormData == null)return ToolClient.jsonValidateField();
             final String userId = LocalUserId.get();
             final String loginUser = userDao.queryExistById(userId);
-            if(!loginUser.equals(ConfigFile.KEY_SUPER)){
+            pageFormData.put("userId",userId);
+            if(loginUser.equals(ConfigFile.KEY_SUPER)){
                 pageFormData.put("keySuper",loginUser);
-                pageFormData.put("userId",userId);
             }
             final HashMap<String,Object> map = userDao.listData(pageFormData);
             return ToolClient.dataTableOK((List<Object>)map.get(ConfigFile.rows),map.get(ConfigFile.total),(List<String>)map.get(ConfigFile.permissions),pageFormData.get("sEcho"));

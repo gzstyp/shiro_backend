@@ -129,23 +129,30 @@
         where sur.user_id = #{userId}
     </select>
 
+    <!-- listData条件查询,其中的 #{userId} 是必填项 -->
+    <sql id="sql_where_listData">
+        WHERE
+        <choose>
+            <when test="keySuper != null">
+                <if test="user_name != null">
+                    su.user_name LIKE CONCAT(#{user_name},'%') AND
+                </if>
+                su.type = 1
+            </when>
+            <otherwise>
+                <if test="user_name != null">
+                    su.user_name LIKE CONCAT(#{user_name},'%') AND
+                </if>
+                su.kid != #{userId} AND su.user_name != 'admin' AND su.type = 1
+            </otherwise>
+        </choose>
+    </sql>
+
     <!-- 列表的数据 -->
     <select id="listData" parameterType="HashMap" resultType="HashMap">
         select su.kid,su.user_name,su.error_count,DATE_FORMAT(su.add_date,'%Y-%m-%d') add_date,su.enabled,DATE_FORMAT(su.logintime,'%Y-%m-%d %H:%i') logintime
         from sys_user su
-        <choose>
-            <when test="userId != null and keySuper != null">
-                WHERE su.kid != #{userId} AND su.user_name != 'admin'
-                <if test="user_name != null">
-                    AND su.user_name LIKE CONCAT(#{user_name},'%')
-                </if>
-            </when>
-            <otherwise>
-                <if test="user_name != null">
-                    WHERE su.user_name LIKE CONCAT(#{user_name},'%')
-                </if>
-            </otherwise>
-        </choose>
+        <include refid="sql_where_listData"/>
         <choose>
             <when test="order != null and column != null">
                 ORDER BY ${column} ${order}
@@ -160,19 +167,7 @@
     <!-- 列表的总条数|总记录数 -->
     <select id="listTotal" parameterType="HashMap" resultType="Integer">
         select COUNT(su.kid) total from sys_user su
-        <choose>
-            <when test="userId != null and keySuper != null">
-                WHERE su.kid != #{userId} AND su.user_name != 'admin'
-                <if test="user_name != null">
-                    AND su.user_name LIKE CONCAT(#{user_name},'%')
-                </if>
-            </when>
-            <otherwise>
-                <if test="user_name != null">
-                    WHERE su.user_name LIKE CONCAT(#{user_name},'%')
-                </if>
-            </otherwise>
-        </choose>
+        <include refid="sql_where_listData"/>
     </select>
 
     <!-- 获取角色(根据userId) -->
