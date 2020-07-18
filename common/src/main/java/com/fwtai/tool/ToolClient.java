@@ -375,7 +375,19 @@ public final class ToolClient implements Serializable{
         if(params == null || params.size() <= 0)return jsonValidateField();
         boolean flag = false;
         for (final String value : fields){
-            if(value == null || value.equalsIgnoreCase("null") || value.equalsIgnoreCase("undefined") || value.equals("_") || value.length() <= 0){
+            final boolean bl = checkNull(value);
+            if(bl){
+                flag = true;
+                break;
+            }
+            final Object object = params.get(value);
+            if(object != null){
+                final boolean _bl = checkNull(String.valueOf(object));
+                if(_bl){
+                    flag = true;
+                    break;
+                }
+            }else{
                 flag = true;
                 break;
             }
