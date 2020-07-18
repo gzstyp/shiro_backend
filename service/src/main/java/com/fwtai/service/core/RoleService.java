@@ -2,7 +2,9 @@ package com.fwtai.service.core;
 
 import com.fwtai.bean.PageFormData;
 import com.fwtai.config.ConfigFile;
+import com.fwtai.config.LocalUserId;
 import com.fwtai.core.RoleDao;
+import com.fwtai.core.UserDao;
 import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolString;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class RoleService{
 
     @Resource
     private RoleDao roleDao;
+
+    @Resource
+    private UserDao userDao;
 
     public String add(final PageFormData pageFormData){
         final String p_role_name = "role_name";
@@ -101,6 +106,11 @@ public class RoleService{
         try {
             pageFormData = ToolClient.dataTableMysql(pageFormData);
             if(pageFormData == null)return ToolClient.jsonValidateField();
+            final String userId = LocalUserId.get();
+            final String loginUser = userDao.queryExistById(userId);
+            if(loginUser.equals(ConfigFile.KEY_SUPER)){
+                pageFormData.put("keySuper",loginUser);
+            }
             final HashMap<String,Object> map = roleDao.listData(pageFormData);
             return ToolClient.dataTableOK((List<Object>)map.get(ConfigFile.rows),map.get(ConfigFile.total),(List<String>)map.get(ConfigFile.permissions),pageFormData.get("sEcho"));
         } catch (Exception e){
