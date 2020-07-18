@@ -104,7 +104,6 @@ public class RoleService{
             final HashMap<String,Object> map = roleDao.listData(pageFormData);
             return ToolClient.dataTableOK((List<Object>)map.get(ConfigFile.rows),map.get(ConfigFile.total),(List<String>)map.get(ConfigFile.permissions),pageFormData.get("sEcho"));
         } catch (Exception e){
-            e.printStackTrace();
             return ToolClient.dataTableException(pageFormData.get("sEcho"));
         }
     }
