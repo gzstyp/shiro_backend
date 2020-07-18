@@ -8,7 +8,7 @@ package com.fwtai.bean;
  * @QQ号码 444141300
  * @Email service@dwlai.com
  * @官网 http://www.fwtai.com
- */
+*/
 public final class UploadFile{
 
     /**原文件名*/
@@ -23,6 +23,8 @@ public final class UploadFile{
     private String urlFile;
     /**含http全路径访问的url*/
     private String httpUri;
+    /**文件域的表单字段名*/
+    private String name;
 
     public String getOriginalName(){
         return originalName;
@@ -70,5 +72,13 @@ public final class UploadFile{
 
     public void setHttpUri(final String httpUri){
         this.httpUri = httpUri;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(final String name){
+        this.name = name;
     }
 }
