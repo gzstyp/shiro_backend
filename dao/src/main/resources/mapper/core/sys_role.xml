@@ -104,16 +104,19 @@
     </update>
 
     <!-- 根据当前登录人指定roleId的获取菜单,用于ztree的菜单分配 -->
-    <select id="getRoleMenu" resultType="HashMap" parameterType="String">
-        select sm.kid,sm.pid,sm.name,IF(lt.menu_id is not null,'true','false') checked from sys_menu sm
-        left join (select menu_id from sys_role_menu where role_id = #{roleId}) lt on lt.menu_id = sm.kid
-        inner join (
-        select menu_id from (select srm.menu_id,sur.user_id from sys_role_menu srm
-            left join sys_user_role sur on sur.role_id = srm.role_id
-            union
-            select sum.menu_id,sum.user_id from sys_user_menu sum
-            left join sys_menu sm on sm.kid = sum.menu_id) tb where user_id = #{userId}
-        ) ij on ij.menu_id = sm.kid order by sm.order_by
+    <select id="getRoleMenu" resultType="HashMap" parameterType="HashMap">
+        select sm.kid,sm.pid,sm.name,IF(lr.menu_id is not null,'true','false') checked from (select sm.kid,sm.pid from (
+        select srm.menu_id from sys_role_menu srm left join sys_user_role sur on sur.role_id = srm.role_id
+        where sur.user_id = #{userId}
+        union
+        select sum.menu_id  from sys_user_menu sum left join sys_menu sm on sm.kid = sum.menu_id
+        where sum.user_id = #{userId}
+        union
+        select srm.menu_id from sys_role_menu srm,sys_menu sm where sm.kid = srm.menu_id and role_id = #{roleId}
+        ) tb,sys_menu sm where sm.kid = tb.menu_id) lt
+        left join
+        (select srm.menu_id from sys_role_menu srm,sys_menu sm where sm.kid = srm.menu_id and role_id = #{roleId})lr on lr.menu_id = lt.kid
+        inner join sys_menu sm on sm.kid = lt.kid order by sm.order_by
     </select>
 
     <!-- 用于超级管理员admin根据指定roleId的获取菜单,用于ztree的菜单分配 -->
