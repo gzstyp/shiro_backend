@@ -149,8 +149,12 @@ public class UserDao{
         dao.execute("sys_user.updateLoginTime",userName);
     }
 
-    public List<HashMap<String,String>> getOwnMenu(final String userId){
-        return dao.queryForListString("sys_user.getOwnMenu",userId);
+    public List<HashMap<String,String>> getOwnMenuForSuper(final String userId){
+        return dao.queryForListString("sys_user.getOwnMenuForSuper",userId);
+    }
+
+    public List<HashMap<String,String>> getOwnMenuForLogin(final PageFormData formData){
+        return dao.queryForListString("sys_user.getOwnMenuForLogin",formData);
     }
 
     public List<HashMap<String,String>> getMenuData(final String userId){

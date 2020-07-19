@@ -241,13 +241,29 @@
         left join (select menu_id from sys_user_menu where user_id = #{userId}) lt on lt.menu_id = tb.kid where tb.pid = #{pid} ORDER BY order_by
     </select>
 
-    <!-- 根据指定userId的获取菜单,用于ztree的菜单分配 -->
-    <select id="getOwnMenu" resultType="HashMap" parameterType="String">
+    <!-- admin根据指定userId的获取菜单,用于ztree的菜单分配 -->
+    <select id="getOwnMenuForSuper" resultType="HashMap" parameterType="String">
         select kid,pid,name,IF(lt.menu_id is not null,'true','false') checked
         from (select sm.kid,sm.name,sm.pid,sm.order_by from sys_menu sm
         left join (select pid from sys_menu group by pid) sub on sub.pid = sm.kid) tb
         left join (select menu_id from sys_user_menu where user_id = #{userId}) lt on lt.menu_id = tb.kid
         ORDER BY order_by
+    </select>
+
+    <!-- 非admin根据指定userId的获取菜单,用于ztree的菜单分配 -->
+    <select id="getOwnMenuForLogin" resultType="HashMap" parameterType="HashMap">
+        select sm.kid,sm.pid,sm.name,IF(lr.menu_id is not null,'true','false') checked from (select sm.kid,sm.pid from (
+        select srm.menu_id from sys_role_menu srm left join sys_user_role sur on sur.role_id = srm.role_id
+        where sur.user_id = #{loginId}
+        union
+        select sum.menu_id  from sys_user_menu sum left join sys_menu sm on sm.kid = sum.menu_id
+        where sum.user_id = #{loginId}
+        union
+        select sum.menu_id from sys_user_menu sum,sys_menu sm where sm.kid = sum.menu_id and sum.user_id = #{userId}
+        ) tb,sys_menu sm where sm.kid = tb.menu_id) lt
+        left join
+        (select sum.menu_id from sys_user_menu sum,sys_menu sm where sm.kid = sum.menu_id and sum.user_id = #{userId})lr on lr.menu_id = lt.kid
+        inner join sys_menu sm on sm.kid = lt.kid order by sm.order_by
     </select>
 
     <!--查看指定userid所有的权限菜单数据-->
