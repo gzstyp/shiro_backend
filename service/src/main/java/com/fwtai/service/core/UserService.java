@@ -98,8 +98,14 @@ public class UserService{
     }
 
     public String getAllotRole(final PageFormData pageFormData){
+        final String loginId = LocalUserId.get();
+        final String loginUser = userDao.queryExistById(loginId);
         final String userId = pageFormData.getString("userId");
-        return ToolClient.queryJson(userDao.getAllotRole(userId));
+        if(loginUser.equals(ConfigFile.KEY_SUPER)){
+            return ToolClient.queryJson(userDao.getSuperAllotRole(userId));
+        }else{
+            return ToolClient.queryJson(userDao.getUserIdAllotRole(loginId,userId));
+        }
     }
 
     public List<String> getPermissions(final String userId){

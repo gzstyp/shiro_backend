@@ -170,8 +170,8 @@
         <include refid="sql_where_listData"/>
     </select>
 
-    <!-- 获取角色(根据userId) -->
-    <select id="getUserIdAllotRole" resultType="HashMap" parameterType="String">
+    <!-- 获取角色(根据超级管理员admin)+指定userId的角色 -->
+    <select id="getSuperAllotRole" resultType="HashMap" parameterType="String">
         select sr.kid,sr.role_name,lt.kid checked from sys_role sr
         left join (
         select sr.kid from sys_role sr
@@ -180,9 +180,25 @@
         ) lt on lt.kid = sr.kid
     </select>
 
-    <!-- 获取角色 -->
+    <!-- 用于admin未指定userId获取角色 -->
     <select id="getAllotRole" resultType="HashMap">
         select kid,role_name from sys_role
+    </select>
+
+    <!-- 显示登录人的角色+指定userId的角色 -->
+    <select id="getUserIdAllotRole" resultType="HashMap" parameterType="HashMap">
+        select sr.kid,sr.role_name,lr.kid checked from (
+        select sr.kid from sys_user_role sur,sys_role sr where sr.kid = sur.role_id and sur.user_id = #{loginId}
+        union
+        select sr.kid from sys_user_role sur,sys_role sr where sr.kid = sur.role_id and sur.user_id = #{userId}) lt
+        left join
+        (select sr.kid from sys_user_role sur,sys_role sr where sr.kid = sur.role_id and sur.user_id = #{userId})lr on lr.kid = lt.kid
+        inner join sys_role sr on sr.kid = lt.kid
+    </select>
+
+    <!-- 仅显示登录人的角色 -->
+    <select id="getLoginAllotRole" resultType="HashMap" parameterType="String">
+        select sr.kid,sr.role_name from sys_user_role sur,sys_role sr where sr.kid = sur.role_id and sur.user_id = #{loginId}
     </select>
 
     <!-- 清空角色 -->

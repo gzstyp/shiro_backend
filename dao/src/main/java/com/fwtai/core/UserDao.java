@@ -102,12 +102,22 @@ public class UserDao{
         return dao.execute("sys_user.editEnabled",pageFormData);
     }
 
-    public List<HashMap<String,String>> getAllotRole(final String userId){
+    public List<HashMap<String,String>> getSuperAllotRole(final String userId){
         if(userId != null){
-            return dao.queryForListString("sys_user.getUserIdAllotRole",userId);
+            return dao.queryForListString("sys_user.getSuperAllotRole",userId);
         }else{
             return dao.queryForListString("sys_user.getAllotRole");
         }
+    }
+
+    public List<HashMap<String,String>> getUserIdAllotRole(final String loginId,final String userId){
+        if(userId != null){
+            final HashMap<String,String> formData = new HashMap<String,String>(2);
+            formData.put("loginId",loginId);
+            formData.put("userId",userId);
+            return dao.queryForListString("sys_user.getUserIdAllotRole",formData);
+        }
+        return dao.queryForListString("sys_user.getLoginAllotRole",loginId);//仅显示登录人的角色
     }
 
     public HashMap<String,Object> listData(final PageFormData pageFormData){
