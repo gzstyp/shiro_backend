@@ -68,8 +68,12 @@ public class RoleDao{
         return dao.execute("sys_role.delEmptyMenu",roleId);
     }
 
-    public List<HashMap<String,String>> getRoleMenu(final String roleId){
-        return dao.queryForListString("sys_role.getRoleMenu",roleId);
+    public List<HashMap<String,String>> getRoleMenuSuper(final String roleId){
+        return dao.queryForListString("sys_role.getRoleMenuSuper",roleId);
+    }
+
+    public List<HashMap<String,String>> getRoleMenu(final PageFormData formData){
+        return dao.queryForListString("sys_role.getRoleMenu",formData);
     }
 
     //清空之前的菜单再保存新的菜单菜单
