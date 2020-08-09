@@ -80,6 +80,7 @@
         LEFT JOIN (SELECT COUNT(role_id) utotal,role_id FROM sys_user_role GROUP BY role_id) l_tb ON l_tb.role_id = sr.kid
         LEFT JOIN (SELECT role_id,COUNT(role_id) mtotal FROM sys_role_menu GROUP BY role_id) lt_rm on lt_rm.role_id = sr.kid
         <include refid="sql_where_listData"/>
+        LIMIT 1
     </select>
 
     <!-- 删除角色 -->

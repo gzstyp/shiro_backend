@@ -161,6 +161,7 @@
                 AND sm.TYPE = #{type}
             </if>
         </trim>
+        LIMIT 1
     </select>
 
     <!-- 查询所有的菜单,用于菜单的添加或编辑 -->
