@@ -168,7 +168,7 @@ public final class PageFormData extends HashMap<String,Object>{
         return false;
     }
 
-    public final static Map<String, String> build(final ServletRequest request){
+    public static Map<String, String> build(final ServletRequest request){
         final Map<String ,String > dataMap = new HashMap<>();
         // 判断是否已经将 inputStream 流中的 body 数据读出放入 attribute
         if (request.getAttribute("body") != null) {
@@ -193,7 +193,7 @@ public final class PageFormData extends HashMap<String,Object>{
      * @QQ 444141300
      * @创建时间 2020年5月23日 20:27:44
     */
-    public final static String getRequest(final HttpServletRequest request){
+    public static String getRequest(final HttpServletRequest request){
         final StringBuilder sb = new StringBuilder();
         try {
             final InputStream is = request.getInputStream();
