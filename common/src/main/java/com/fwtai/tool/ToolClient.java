@@ -608,7 +608,7 @@ public final class ToolClient implements Serializable{
                     writer.write(JSON.parseObject(json).fluentPut("renewal","token").toJSONString());
                     writer.flush();
                 }else{
-                    writer.write(json);
+                    writer.write(String.valueOf(JSON.parse(json)));
                     writer.flush();
                 }
             }
