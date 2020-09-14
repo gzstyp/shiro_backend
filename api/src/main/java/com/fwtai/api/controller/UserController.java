@@ -1,5 +1,6 @@
 package com.fwtai.api.controller;
 
+import com.fwtai.config.ConfigFile;
 import com.fwtai.tool.ToolClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 */
 @Api(tags = "app端用户中心")
 @RestController
-@RequestMapping("/api/v1.0/user")
+@RequestMapping(ConfigFile.api_v10 + "user")
 public class UserController{
 
     /*Post请求 保存用户信息*/

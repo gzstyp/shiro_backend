@@ -13,8 +13,7 @@ import java.io.Serializable;
 */
 public final class ConfigFile implements Serializable{
 
-    /**token请求头名称*/
-    //public final static String TOKEN_HEADER_NAME = "authorization";
+    public final static String api_v10 = "/api/v1.0/";
 
     public final static String ACCESS_TOKEN = "accessToken";
     public final static String REFRESH_TOKEN = "refreshToken";
