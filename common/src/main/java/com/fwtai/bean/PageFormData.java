@@ -85,7 +85,7 @@ public final class PageFormData extends HashMap<String,Object>{
                     }
                 }
             }
-        } catch (Exception e){}
+        } catch (final Exception ignored){}
         return this;
     }
 
@@ -119,8 +119,7 @@ public final class PageFormData extends HashMap<String,Object>{
                     return json;
                 }
             }
-        } catch (Exception e){
-        }
+        } catch (final Exception ignored){}
         return json;
     }
 
@@ -156,7 +155,7 @@ public final class PageFormData extends HashMap<String,Object>{
                     if(!objectObject.isEmpty())jsonArray.add(objectObject);
                 }
             }
-        } catch (Exception e){}
+        } catch (final Exception ignored){}
         return jsonArray;
     }
 
@@ -179,7 +178,7 @@ public final class PageFormData extends HashMap<String,Object>{
                 Map<String,String > maps = JSON.parseObject(request.getInputStream(),Map.class);
                 dataMap.putAll(maps);
                 request.setAttribute("body",dataMap);
-            }catch (IOException e) {
+            }catch (final IOException e) {
                 e.printStackTrace();
             }
             return dataMap;
@@ -204,7 +203,7 @@ public final class PageFormData extends HashMap<String,Object>{
                 sb.append(s);
             }
             return sb.length() > 0 ? sb.toString() : null;
-        } catch (Exception e) {}
+        } catch (final Exception ignored) {}
         return null;
     }
 
