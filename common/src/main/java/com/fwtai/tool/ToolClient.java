@@ -1221,4 +1221,20 @@ public final class ToolClient implements Serializable{
             }.start();
         } catch (Exception e){}
     }
+
+    /**
+     * 把URL后跟的查询字符串转成HashMap对象
+    */
+    public static HashMap<String,String> parseQuery(final String urlQuery) {
+        final HashMap<String,String> data = new HashMap<String,String>();
+        final String[] params = urlQuery.split("&");
+        for (final String param : params) {
+            final String[] k = param.split("=");
+            final String value = k[1];
+            if(value != null && value.trim().length() > 0){
+                data.put(k[0],value);
+            }
+        }
+        return data;
+    }
 }
