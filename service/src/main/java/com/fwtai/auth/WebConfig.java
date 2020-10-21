@@ -21,8 +21,8 @@ public class WebConfig implements WebMvcConfigurer{
         registry.addMapping("/**")
             .allowedOrigins("http://api.fwtai.com","http://192.168.3.108")
             .allowCredentials(true)
-            .allowedMethods("*")
-            .allowedHeaders("*")
+            .allowedMethods("GET","POST","OPTIONS")
+            .allowedHeaders("content-type")
             .maxAge(7200L);
     }
 }
