@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer{
             .allowedOrigins("http://api.fwtai.com","http://192.168.3.108")
             .allowCredentials(true)
             .allowedMethods("GET","POST","OPTIONS")
-            .allowedHeaders("content-type")
+            .allowedHeaders("*")
             .maxAge(7200L);
     }
 }
