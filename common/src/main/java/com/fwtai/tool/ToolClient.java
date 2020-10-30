@@ -1042,8 +1042,8 @@ public final class ToolClient implements Serializable{
      */
     public static String dataTableOK(List<Object> listData,Object total,final List<String> permissions,final Object sEcho){
         final JSONObject json = new JSONObject();
-        if(listData != null && listData.size() <= 0){
-            listData = new ArrayList();
+        if(listData == null || listData.size() == 0){
+            listData = new ArrayList<Object>();
             total = 0;
             json.put(ConfigFile.code,ConfigFile.code201);
             json.put(ConfigFile.msg,ConfigFile.msg201);
